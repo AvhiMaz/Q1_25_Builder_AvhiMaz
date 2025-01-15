@@ -14,7 +14,7 @@ During this class, we covered some fundamental terminologies and concepts relate
 
 This script creates a new mint address using the Solana SPL Token library.
  
-File : ```ts/spl_init.ts```
+File : ```ts/cluster1/spl_init.ts``` (run the code : ```npx ts-node ts/cluster1/spl_init.ts```)
 
 ```typescript
 import { Keypair, Connection, Commitment } from "@solana/web3.js";
@@ -48,7 +48,7 @@ Generated Mint Address: [View on Solscan](https://solscan.io/token/CnsyPy8eovZzD
 
 This script mints tokens to an associated token account (ATA).
 
-File : ```ts/spl_mint.ts```
+File : ```ts/cluster1/spl_mint.ts``` (run the code : ```npx ts-node ts/cluster1/spl_mint.ts```)
 
 ```typescript
 import { Keypair, PublicKey, Connection, Commitment } from "@solana/web3.js";

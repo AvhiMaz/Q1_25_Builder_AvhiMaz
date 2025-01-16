@@ -25,4 +25,3 @@ File : `ts/cluster1/spl_metadata.ts`
 File : `ts/cluster1/spl_transfer.ts`
 
 [View transaction](https://explorer.solana.com/tx/3EKGwFhnGaMiCSSgEE6StS8ZVirq3Ns1xnNNndrNq4WM3TbnSohpyBU9NbBs8HK4VzxXT5XgCrwZFna2sigbrFWG?cluster=devnet)
-Mint Transaction ID: Available via logs

@@ -1,93 +1,28 @@
 # Class 1 - 14/01/25
 
-During this class, we covered some fundamental terminologies and concepts related to Solana, including:
-  - Account
-  - Program
-  - Rent
-  - Transaction
-  - Compute
-  - IDL
-  - SPL Token
-  - Associated Token Account
-
 ### 1. Creating a Mint
 
-This script creates a new mint address using the Solana SPL Token library.
- 
-File : ```ts/cluster1/spl_init.ts``` (run the code : ```npx ts-node ts/cluster1/spl_init.ts```)
+File : `ts/cluster1/spl_init.ts`
 
-```typescript
-import { Keypair, Connection, Commitment } from "@solana/web3.js";
-import { createMint } from "@solana/spl-token";
-import wallet from "../wba-wallet.json";
-
-const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
-
-const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
-
-(async () => {
-  try {
-    const mint = await createMint(
-      connection,
-      keypair,
-      keypair.publicKey,
-      null,
-      6,
-    );
-    console.log(`Mint address: ${mint.toBase58()}`);
-  } catch (error) {
-    console.log(`Oops, something went wrong: ${error}`);
-  }
-})();
-
-```
-Generated Mint Address: [View on Solscan](https://solscan.io/token/CnsyPy8eovZzDbBoJ79VbqKgwEEXcphufE7s3Z5apXrn?cluster=devnet)
+[View transaction](https://solscan.io/token/CnsyPy8eovZzDbBoJ79VbqKgwEEXcphufE7s3Z5apXrn?cluster=devnet)
 
 ### 2. Minting Tokens
 
-This script mints tokens to an associated token account (ATA).
+File : `ts/cluster1/spl_mint.ts`
 
-File : ```ts/cluster1/spl_mint.ts``` (run the code : ```npx ts-node ts/cluster1/spl_mint.ts```)
+[View transaction](https://solscan.io/account/3UzCVhCfCfLR3moF5jxeKP2vgFdPpZkB2t9U8D5LGLAA?cluster=devnet)
 
-```typescript
-import { Keypair, PublicKey, Connection, Commitment } from "@solana/web3.js";
-import { getOrCreateAssociatedTokenAccount, mintTo } from "@solana/spl-token";
-import wallet from "../wba-wallet.json";
+# Class 2 - 15/01/25
 
-const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
+### 1. Add metadata to SPL
 
-const commitment: Commitment = "confirmed";
-const connection = new Connection("https://api.devnet.solana.com", commitment);
+File : `ts/cluster1/spl_metadata.ts`
 
-const token_decimals = 1_000_000n;
+[View transaction](https://solscan.io/tx/59GJwjgZsjobBtnCigAcYM9r2LJ13RHr1ShPMoHYqTr6NWRN8Ein9ni5uRQ3nvb58xkHtyh3RJAkURczCaHuvxJf?cluster=devnet)
 
-const mint = new PublicKey("CnsyPy8eovZzDbBoJ79VbqKgwEEXcphufE7s3Z5apXrn");
+### 2. Transfer
 
-(async () => {
-  try {
-    const ata = await getOrCreateAssociatedTokenAccount(
-      connection,
-      keypair,
-      mint,
-      keypair.publicKey
-    );
-    console.log(`Your ata is: ${ata.address.toBase58()}`);
-    const mintTx = await mintTo(
-      connection,
-      keypair,
-      mint,
-      ata.address,
-      keypair.publicKey,
-      1n * token_decimals
-    );
-    console.log(`Your mint txid: ${mintTx}`);
-  } catch (error) {
-    console.log(`Oops, something went wrong: ${error}`);
-  }
-})();
+File : `ts/cluster1/spl_transfer.ts`
 
-```
-Generated Details :
-- Associated Token Account: [View on Solscan](https://solscan.io/account/3UzCVhCfCfLR3moF5jxeKP2vgFdPpZkB2t9U8D5LGLAA?cluster=devnet)
-- Mint Transaction ID: Available via logs
+[View transaction](https://explorer.solana.com/tx/3EKGwFhnGaMiCSSgEE6StS8ZVirq3Ns1xnNNndrNq4WM3TbnSohpyBU9NbBs8HK4VzxXT5XgCrwZFna2sigbrFWG?cluster=devnet)
+Mint Transaction ID: Available via logs

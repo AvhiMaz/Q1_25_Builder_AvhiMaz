@@ -1,3 +1,4 @@
+#![allow(unexpected_cfgs)]
 use anchor_lang::{ prelude::*, system_program::{ transfer, Transfer } };
 
 declare_id!("774KyFoBE56HNpone4CMZr9kaUtcYJ4oTvLsXZ26vktC");

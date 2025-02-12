@@ -1,3 +1,4 @@
+#![allow(unexpected_cfgs)]
 pub mod constant;
 pub mod error;
 pub mod instructions;
@@ -19,7 +20,7 @@ pub mod amm {
         ctx: Context<Initialize>,
         seed: u64,
         fee: u16,
-        authority: Option<Pubkey>
+        _authority: Option<Pubkey>
     ) -> Result<()> {
         ctx.accounts.init_config(seed, fee, ctx.bumps.config, ctx.bumps.mint_lp)?;
         Ok(())

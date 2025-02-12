@@ -5,9 +5,10 @@ use solana_program::{
     ed25519_program,
     hash::hash,
 };
+
 use crate::{ state::Bet, error::DiceError };
 
-pub const HOUSE_EDGE: u16 = 150;
+pub const HOUSE_EDGE: u16 = 150; // 1.5% House edge
 
 #[derive(Accounts)]
 pub struct ResultBet<'info> {
@@ -16,6 +17,7 @@ pub struct ResultBet<'info> {
     #[account(
         mut
     )]
+    ///CHECK: This is safe
     pub player: UncheckedAccount<'info>,
     #[account(
         mut,
@@ -31,14 +33,18 @@ pub struct ResultBet<'info> {
     )]
     pub bet: Account<'info, Bet>,
     #[account(address = solana_program::sysvar::instructions::ID)]
+    /// CHECK: This is safe
     pub instruction_sysvar: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
 }
 
 impl<'info> ResultBet<'info> {
     pub fn verify_ed25519_signature(&mut self, sig: &[u8]) -> Result<()> {
+        // Get the Ed25519 signature instruction
         let ix = load_instruction_at_checked(0, &self.instruction_sysvar.to_account_info())?;
+        // Make sure the instruction is addressed to the ed25519 program
         require_keys_eq!(ix.program_id, ed25519_program::ID, DiceError::Ed25519Program);
+        // Make sure there are no accounts present
         require_eq!(ix.accounts.len(), 0, DiceError::Ed25519Accounts);
 
         let signatures = Ed25519InstructionSignatures::unpack(&ix.data)?.0;
@@ -46,19 +52,23 @@ impl<'info> ResultBet<'info> {
         require_eq!(signatures.len(), 1, DiceError::Ed25519DataLength);
         let signature = &signatures[0];
 
+        // Make sure all the data is present to verify the signature
         require!(signature.is_verifiable, DiceError::Ed25519Header);
 
+        // Ensure public keys match
         require_keys_eq!(
             signature.public_key.ok_or(DiceError::Ed25519Pubkey)?,
             self.house.key(),
             DiceError::Ed25519Pubkey
         );
 
+        // Ensure signatures match
         require!(
             &signature.signature.ok_or(DiceError::Ed25519Signature)?.eq(sig),
             DiceError::Ed25519Signature
         );
 
+        // Ensure messages match
         require!(
             &signature.message
                 .as_ref()
@@ -81,6 +91,7 @@ impl<'info> ResultBet<'info> {
         let roll = (lower.wrapping_add(upper).wrapping_rem(100) as u8) + 1;
 
         if self.bet.roll > roll {
+            // Payout minus house edge
             let payout = (self.bet.amount as u128)
                 .checked_mul(10000 - (HOUSE_EDGE as u128))
                 .ok_or(DiceError::Overflow)?

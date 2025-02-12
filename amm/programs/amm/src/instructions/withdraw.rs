@@ -129,7 +129,7 @@ impl<'info> Withdraw<'info> {
 
         let cpi_ctx = CpiContext::new_with_signer(program, accounts, signer_seeds);
 
-        transfer_checked(cpi_ctx, amount, decimals);
+        transfer_checked(cpi_ctx, amount, decimals)?;
 
         Ok(())
     }
@@ -144,7 +144,7 @@ impl<'info> Withdraw<'info> {
 
         let cpi_ctx = CpiContext::new(cpi_program, accounts);
 
-        burn(cpi_ctx, self.user_lp.amount);
+        burn(cpi_ctx, self.user_lp.amount)?;
         Ok(())
     }
 }

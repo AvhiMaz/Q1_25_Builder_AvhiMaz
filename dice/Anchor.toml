@@ -11,7 +11,7 @@ dice = "F7h7MxSPuyfJqCFnCp6NYsQooTtqCPVALshQp6qK899k"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

@@ -1,9 +1,7 @@
-use anchor_lang::error_code;
+use anchor_lang::prelude::*;
 
 #[error_code]
-pub enum MarketPlaceError {
-    #[msg("The name is too long")]
-    NameTooLong,
-    #[msg("The collection is invalid")]
-    InvalidCollections,
+pub enum MarketplaceError {
+    #[msg("the length for the given name for the marketplace should be between 0 and 32")]
+    NameToLong,
 }

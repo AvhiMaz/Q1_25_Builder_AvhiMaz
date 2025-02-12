@@ -15,7 +15,7 @@ pub struct PlaceBet<'info> {
         bump
     )]
     pub vault: SystemAccount<'info>,
-    
+
     #[account(
         init,
         payer = player,
@@ -30,17 +30,17 @@ pub struct PlaceBet<'info> {
 impl<'info> PlaceBet<'info> {
     pub fn create_bet(
         &mut self,
+        bumps: &PlaceBetBumps,
         seed: u128,
-        amount: u64,
         roll: u8,
-        bumps: &PlaceBetBumps
+        amount: u64
     ) -> Result<()> {
         self.bet.set_inner(Bet {
-            player: self.player.key(),
-            amount,
             slot: Clock::get()?.slot,
-            roll,
+            player: self.player.key(),
             seed,
+            roll,
+            amount,
             bump: bumps.bet,
         });
         Ok(())

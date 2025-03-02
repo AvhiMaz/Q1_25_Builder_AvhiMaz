@@ -9,7 +9,7 @@ Welcome to the **Turbin3 Builder Cohort** repository! This serves as a centraliz
 - **Capstone Repository**: [Nestfolio DAO](https://github.com/4rjunc/nestfolio/)
 - **Letter of Intent (LOI)**: [View Document](https://docs.google.com/document/d/1eqb1L-k3_BGJH78C4hm93Ho8nJ6oOwfgNqNfH212U6M/edit?tab=t.0) / [Link](https://solana-turbin3.github.io/Q1_25_Builder_AvhiMaz/docs/LOI.html)
 - **User Stories**: [View Document](https://docs.google.com/document/d/1ZQPu2TxbBhLUpNtphhLAHh3od6hKzoxPjCG04ynyfmo/edit?tab=t.0) / [Link](https://solana-turbin3.github.io/Q1_25_Builder_AvhiMaz/docs/user_story.html)
-- **Architecture Diagram**: *(Coming Soon)*
+- **Architecture Diagram**: [view Document](https://docs.google.com/document/d/187Y3Kyx5x9pkQKORfxurYicBLcGn-1ZUo9evkm4ep-4/edit?tab=t.0#heading=h.qyvr4ywzgytu)
 
 ---
 
